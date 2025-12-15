@@ -1,0 +1,376 @@
+/* 全局变量定义：火星配色 */
+:root {
+    --mars-red: #c65f48;
+    --mars-dark: #1a0f0f;
+    --mars-darker: #0a0505;
+    --space-blue: #4a8bad;
+    --neon-blue: #00f7ff;
+    --neon-red: #ff4800;
+    --text-light: #f0f0f0;
+}
+
+/* 基础设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans SC', sans-serif;
+    background-color: var(--mars-darker);
+    color: var(--text-light);
+    scroll-behavior: smooth; /* 启用平滑滚动 */
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo, .btn-primary {
+    font-family: 'Orbitron', sans-serif; /* 科幻字体 */
+    text-transform: uppercase;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* 霓虹文字效果 */
+.glow-text {
+    color: var(--text-light);
+    text-shadow: 0 0 10px var(--mars-red), 0 0 20px var(--mars-red), 0 0 30px var(--neon-red);
+}
+.glow-text-red {
+    color: var(--mars-red);
+    text-shadow: 0 0 5px var(--neon-red);
+}
+.glow-text-blue {
+    color: var(--space-blue);
+    text-shadow: 0 0 5px var(--neon-blue);
+}
+
+/* 霓虹边框效果 */
+.glow-border {
+    border: 2px solid var(--mars-red);
+    box-shadow: 0 0 15px var(--mars-red) inset, 0 0 15px var(--mars-red);
+    border-radius: 10px;
+}
+.glow-border-blue {
+    border: 2px solid var(--space-blue);
+    box-shadow: 0 0 15px var(--space-blue) inset, 0 0 15px var(--space-blue);
+    border-radius: 10px;
+}
+
+/* 导航栏 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: rgba(10, 5, 5, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 90%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(198, 95, 72, 0.3);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--mars-red);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a:hover {
+    color: var(--mars-red);
+    text-shadow: 0 0 5px var(--neon-red);
+}
+
+/* Hero 首页 */
+.hero-section {
+    height: 100vh;
+    /* 【缺图】如果您有背景图，请命名为 bg.jpg 放入 assets 文件夹，然后取消下面这一行的注释 */
+    /* background: linear-gradient(to bottom, rgba(10,5,5,0.6), var(--mars-darker)), url('assets/bg.jpg') no-repeat center center/cover; */
+    
+    /* 临时使用的在线背景图，如果有了 bg.jpg 请删除下面这一行 */
+    background: linear-gradient(to bottom, rgba(10,5,5,0.6), var(--mars-darker)), url('https://images.unsplash.com/photo-1635332616035-136c9668d90e?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+.hero-content h2 {
+    font-size: 2rem;
+    color: var(--space-blue);
+    margin-bottom: 30px;
+}
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 50px;
+}
+
+/* 按钮 */
+.btn-primary {
+    padding: 15px 40px;
+    background: transparent;
+    color: var(--text-light);
+    border: 2px solid var(--mars-red);
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.glow-button {
+     box-shadow: 0 0 10px var(--mars-red) inset, 0 0 20px var(--mars-red);
+}
+
+.btn-primary:hover {
+    background: var(--mars-red);
+    box-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-red);
+    color: #fff;
+}
+
+/* 向导区域 */
+.guide-section {
+    padding: 100px 0;
+    background: linear-gradient(45deg, var(--mars-darker), #2a1a1a);
+}
+
+.guide-image-container {
+    flex: 1;
+    max-width: 400px;
+    padding: 10px;
+    background: rgba(255,255,255,0.05);
+}
+.guide-img {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+}
+
+.guide-info {
+    flex: 1.5;
+}
+.guide-info h3 {
+    color: var(--mars-red);
+    margin-bottom: 0;
+}
+.guide-info h2 {
+    font-size: 2.5rem;
+    margin-top: 10px;
+}
+.guide-title {
+    font-size: 1.1rem;
+    color: var(--space-blue);
+    letter-spacing: 1px;
+}
+.guide-bio {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin: 30px 0;
+    padding-left: 20px;
+    border-left: 4px solid var(--mars-red);
+}
+
+/* 交互地图区域 */
+.map-section {
+    padding: 100px 0;
+    background: var(--mars-darker);
+}
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--mars-red);
+}
+
+.interactive-map-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 50px auto;
+    background: rgba(74, 139, 173, 0.1); /* 蓝色微光背景 */
+    padding: 20px;
+    overflow: hidden;
+    min-height: 400px; /* 防止没有地图时塌陷 */
+}
+
+.main-map {
+    width: 100%;
+    display: block;
+    filter: sepia(30%) hue-rotate(-10deg) contrast(110%); /* 稍微调整地图色调以适应网站 */
+}
+
+/* 地图热点样式 */
+.map-hotspot {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%); /* 居中定位 */
+    z-index: 10;
+    cursor: pointer;
+}
+
+.hotspot-dot {
+    width: 20px;
+    height: 20px;
+    background: var(--neon-red);
+    border-radius: 50%;
+    margin: 10px;
+    box-shadow: 0 0 0 rgba(255, 72, 0, 0.4);
+    animation: pulse 2s infinite;
+}
+.celebration-hotspot .hotspot-dot {
+    background: var(--neon-blue); /* 庆典用蓝色区分 */
+     animation: pulse-blue 2s infinite;
+}
+
+.map-hotspot:hover::after {
+    content: attr(data-name);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    color: var(--neon-red);
+    font-size: 0.9rem;
+    border: 1px solid var(--mars-red);
+}
+
+/* 游览项目通用样式 */
+.attraction-section {
+    padding: 120px 0;
+    border-bottom: 1px solid rgba(198, 95, 72, 0.2);
+}
+.attraction-left { background: linear-gradient(to right, var(--mars-darker), #221515); }
+.attraction-right { background: linear-gradient(to left, var(--mars-darker), #151a22); }
+
+.attraction-text h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+.attraction-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+}
+
+.attraction-visual {
+    flex: 1;
+    overflow: hidden;
+}
+.attraction-visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+.attraction-visual:hover img {
+    transform: scale(1.05); /* 鼠标悬停放大效果 */
+}
+
+/* 飞行器展示 */
+.vehicle-display {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(74, 139, 173, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+.vehicle-img {
+    width: 120px;
+    height: auto;
+    border-radius: 5px;
+}
+.vehicle-display span {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--space-blue);
+}
+
+/* 反向布局类 */
+.row-reverse {
+    flex-direction: row-reverse;
+}
+
+/* 最终章特别样式 */
+.final-section {
+    background: radial-gradient(circle at center, #3a1a1a, var(--mars-darker));
+    padding-bottom: 150px;
+}
+.big-title {
+    font-size: 3rem;
+    margin-bottom: 50px;
+}
+.celebration-content {
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    display: inline-block;
+}
+.celebration-img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+/* 页脚 */
+footer {
+    background: var(--mars-darker);
+    padding: 30px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    border-top: 1px solid var(--mars-red);
+}
+
+/* 动画定义 */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 72, 0, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 72, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 72, 0, 0); }
+}
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(0, 247, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0); }
+}
+
+/* 响应式适配 (简单版) */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2.5rem; }
+    .flex-center { flex-direction: column; gap: 30px; }
+    .row-reverse { flex-direction: column; }
+    .guide-image-container, .attraction-visual { max-width: 100%; width: 100%; }
+    .navbar { padding: 15px; flex-direction: column; gap: 15px; }
+    .map-hotspot:hover::after { display: none; } /* 手机端隐藏hover提示 */
+}
