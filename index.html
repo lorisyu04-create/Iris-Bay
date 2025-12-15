@@ -4,8 +4,218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IRIS BAY.com | 虹湾之城</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           直接内置 CSS 样式，确保修改立即生效
+           ========================================= */
+        
+        /* 全局变量：火星配色 */
+        :root {
+            --mars-red: #c65f48;
+            --mars-dark: #0f0808;
+            --space-blue: #4a8bad;
+            --neon-red: #ff4800;
+            --neon-blue: #00f7ff;
+            --text-main: #ffffff;
+            --text-sub: #e0e0e0;
+        }
+
+        /* 1. 基础排版：字体巨大化 */
+        html {
+            font-size: 20px; /* 【核心】基准字体调大 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--mars-dark);
+            color: var(--text-main);
+            line-height: 1.8; /* 行高增加，阅读更舒服 */
+            overflow-x: hidden;
+        }
+
+        /* 2. 容器限制：防止内容在超大屏上太散 */
+        .container {
+            width: 90%;
+            max-width: 1300px; /* 限制最大宽度 */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 3. 强力 Flex 布局：强制垂直居中 */
+        .flex-center {
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            justify-content: space-between;
+            gap: 80px; /* 图文之间的间距加大 */
+            padding: 80px 0;
+        }
+
+        /* 反向布局 */
+        .row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* 4. 文字区域：强制占据一半空间 */
+        .attraction-text, .guide-info {
+            flex: 1; /* 占比 1份 */
+            min-width: 0; /* 防止文字溢出 */
+        }
+
+        /* 5. 图片区域：强制占据另一半，且限制最大尺寸 */
+        .attraction-visual, .guide-image-container {
+            flex: 1; /* 占比 1份 */
+            display: flex;
+            justify-content: center;
+            max-width: 600px; /* 【核心】图片容器最大宽度锁死！ */
+        }
+
+        /* 图片本身自适应 */
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+        }
+
+        /* =========================================
+           具体组件样式
+           ========================================= */
+
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(15, 8, 8, 0.95);
+            position: fixed;
+            top: 0;
+            width: 90%; /* 这里的90%对应padding */
+            z-index: 1000;
+            border-bottom: 2px solid var(--mars-red);
+        }
+        .logo { font-family: 'Orbitron'; font-size: 1.8rem; font-weight: bold; color: var(--mars-red); }
+        .nav-links { list-style: none; display: flex; gap: 40px; }
+        .nav-links a { text-decoration: none; color: #fff; font-size: 1.2rem; font-weight: bold; }
+
+        /* 首页 Hero */
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), var(--mars-dark)), url('https://images.unsplash.com/photo-1635332616035-136c9668d90e?q=80&w=1920&auto=format&fit=crop') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+        .hero-content h1 { font-family: 'Orbitron'; font-size: 5rem; margin: 0; text-shadow: 0 0 30px var(--mars-red); }
+        .hero-content h2 { font-size: 2.5rem; color: var(--space-blue); margin: 20px 0; }
+        .hero-content p { font-size: 1.5rem; max-width: 800px; margin: 0 auto 50px; }
+        
+        /* 按钮 */
+        .btn-primary {
+            padding: 20px 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            border: 3px solid var(--mars-red);
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            background: rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px var(--mars-red);
+        }
+        .btn-primary:hover { background: var(--mars-red); }
+
+        /* 向导区域 */
+        .guide-section { background: linear-gradient(45deg, #1a0f0f, #2a1515); }
+        .guide-image-container { max-width: 400px; } /* 向导图片稍微小一点 */
+        .guide-info h2 { font-size: 3.5rem; margin-bottom: 20px; color: var(--space-blue); }
+        .guide-bio p { font-size: 1.4rem; padding-left: 30px; border-left: 6px solid var(--mars-red); }
+
+        /* 地图区域 */
+        .map-section { background: #000; padding: 100px 0; }
+        .section-title { font-size: 3.5rem; color: var(--mars-red); margin-bottom: 20px; font-family: 'Orbitron'; }
+        .interactive-map-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 2px solid var(--space-blue);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--space-blue);
+        }
+        
+        /* 地图热点 - 霓虹红点 */
+        .map-hotspot {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .hotspot-dot {
+            width: 100%; height: 100%;
+            background: var(--neon-red);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon-red);
+            animation: pulse 1.5s infinite;
+        }
+        .celebration-hotspot .hotspot-dot { background: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 游览项目排版 */
+        .attraction-section { padding: 100px 0; border-bottom: 1px solid #333; }
+        .attraction-text h2 {
+            font-size: 3rem; /* 标题巨大 */
+            margin-bottom: 30px;
+            font-family: 'Orbitron';
+        }
+        .attraction-text .glow-text-red { color: var(--mars-red); text-shadow: 0 0 10px var(--neon-red); }
+        .attraction-text .glow-text-blue { color: var(--space-blue); text-shadow: 0 0 10px var(--neon-blue); }
+        
+        .attraction-description p {
+            font-size: 1.4rem; /* 正文巨大 */
+            color: #ccc;
+            text-align: justify; /* 两端对齐 */
+        }
+
+        /* 载具小图 */
+        .vehicle-display {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        .vehicle-img { width: 150px; height: auto; }
+        .vehicle-display span { font-size: 1.2rem; color: var(--space-blue); font-family: 'Orbitron'; }
+
+        /* 最终章 */
+        .celebration-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .big-title { font-size: 4rem; margin-bottom: 50px; color: #fff; text-shadow: 0 0 20px var(--neon-red); }
+
+        /* 手机适配 */
+        @media (max-width: 768px) {
+            .flex-center { flex-direction: column; text-align: center; gap: 40px; }
+            .row-reverse { flex-direction: column; }
+            .attraction-text, .attraction-visual { max-width: 100%; width: 100%; }
+            .hero-content h1 { font-size: 3rem; }
+            .nav-links { display: none; } /* 手机暂隐导航 */
+        }
+    </style>
 </head>
 <body>
 
@@ -21,21 +231,21 @@
 
     <header id="hero" class="hero-section">
         <div class="hero-content">
-            <h1>欢迎来到<span class="glow-text">虹湾之城</span></h1>
+            <h1>欢迎来到虹湾之城</h1>
             <h2>IRIS BAY：人类在火星的第二家园</h2>
             <p>准备好用你的快乐，来感受这颗红色星球真正的心跳了吗？</p>
-            <a href="#map-section" class="btn-primary glow-button">开启旅程</a>
+            <a href="#map-section" class="btn-primary">开启旅程</a>
         </div>
     </header>
 
     <section id="guide" class="guide-section">
         <div class="container flex-center">
-            <div class="guide-image-container glow-border">
-                <img src="./Elara.jpg" alt="Elara Vance" class="guide-img">
+            <div class="guide-image-container">
+                <img src="./Elara.jpg" alt="Elara Vance">
             </div>
             <div class="guide-info">
                 <h3>您的专属向导</h3>
-                <h2 class="glow-text-blue">Elara Vance (埃拉娜·万斯)</h2>
+                <h2>Elara Vance (埃拉娜·万斯)</h2>
                 <p class="guide-title">体验生态学家 & 情绪引导师 | 开拓者二代</p>
                 <div class="guide-bio">
                     <p>“欢迎来到虹湾之城，开拓者！地球是我们的摇篮，但这里是我们的家。” 作为火星出生的第二代公民，Elara 将用她专业的生态视角和本地人的热情，带您领略火星的奇迹，确保您收集到最纯粹的“快乐能量”。</p>
@@ -47,114 +257,8 @@
     <section id="map-section" class="map-section">
         <div class="container">
             <h2 class="section-title text-center">探索虹湾</h2>
-            <p class="text-center">点击地图上的霓虹光点，快速跳转至对应体验区域。</p>
-            <div class="interactive-map-container glow-border-blue">
-                <img src="./map.jpg" alt="虹湾之城地图" class="main-map">
-                
-                <a href="#canyon" class="map-hotspot" style="top: 28%; left: 76%;" data-name="峡谷巡礼">
-                    <div class="hotspot-dot"></div>
-                </a>
-                
-                <a href="#gravity" class="map-hotspot" style="top: 55%; left: 48%;" data-name="重力之舞">
-                    <div class="hotspot-dot"></div>
-                </a>
-                
-                <a href="#starlight" class="map-hotspot" style="top: 50%; left: 90%;" data-name="星光迷宫">
-                    <div class="hotspot-dot"></div>
-                </a>
-                
-                <a href="#memory" class="map-hotspot" style="top: 74%; left: 74%;" data-name="记忆熔炉">
-                    <div class="hotspot-dot"></div>
-                </a>
-                
-                <a href="#celebration" class="map-hotspot celebration-hotspot" style="top: 58%; left: 21%;" data-name="星火庆典">
-                    <div class="hotspot-dot"></div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <div id="attractions" class="attractions-container">
-        
-        <section id="canyon" class="attraction-section attraction-left">
-            <div class="container flex-center">
-                <div class="attraction-text">
-                    <h2 class="glow-text-red">01 | 峡谷巡礼 (Canyon Pilgrimage)</h2>
-                    <div class="attraction-description">
-                        <p>乘坐高速飞行器穿越太阳系最大的峡谷——水手号峡谷。在极速飞驰中，你将亲眼目睹人类工程学的奇迹，感受红色星球亿万年地质运动留下的壮丽伤痕，抬头望去，不是地球的蔚蓝，而是火星特有的粉褐色天幕，仿佛被夕阳搅拌成一杯草莓锈岩奶昔。</p>
-                    </div>
-                    <div class="vehicle-display">
-                         <img src="./飞船.jpg" alt="峡谷穿梭机" class="vehicle-img glow-border-blue">
-                        <span>专属载具：峡谷穿梭机</span>
-                    </div>
-                </div>
-                <div class="attraction-visual glow-border">
-                    <img src="./xiagu.jpg" alt="峡谷巡礼场景">
-                </div>
-            </div>
-        </section>
-
-        <section id="gravity" class="attraction-section attraction-right">
-            <div class="container flex-center row-reverse">
-                <div class="attraction-text">
-                    <h2 class="glow-text-blue">02 | 重力之舞 (Gravity Dance)</h2>
-                    <div class="attraction-description">
-                        <p>摆脱地球引力的束缚！在特制的低重力穹顶中，体验火星仅有地球 38% 的重力环境。在这里，每个人都是舞蹈家，可以像羽毛一样轻盈地飞翔、跳跃和旋转，完美结合了刺激与安全。</p>
-                    </div>
-                </div>
-                <div class="attraction-visual glow-border-blue">
-                     <img src="./zhongli.jpg" alt="重力之舞场景">
-                </div>
-            </div>
-        </section>
-
-        <section id="starlight" class="attraction-section attraction-left">
-            <div class="container flex-center">
-                <div class="attraction-text">
-                    <h2 class="glow-text-red">03 | 星光迷宫 (Starlight Maze)</h2>
-                    <div class="attraction-description">
-                        <p>你将和其他访客组成一支勘探队，乘坐小型模拟钻井车，进入一个由真实火星岩石搭建的迷宫般的矿道。这里光线昏暗，空气中弥漫着金属和岩石的气息，墙壁上闪烁着任务简报和地质数据，充满了工业感和未来科技感。</p>
-                    </div>
-                </div>
-                <div class="attraction-visual glow-border">
-                     <img src="./migong.PNG" alt="星光迷宫场景">
-                </div>
-            </div>
-        </section>
-
-        <section id="memory" class="attraction-section attraction-right">
-            <div class="container flex-center row-reverse">
-                <div class="attraction-text">
-                    <h2 class="glow-text-blue">04 | 记忆熔炉 (Memory Forge)</h2>
-                    <div class="attraction-description">
-                        <p>这里排列着高精度 3D 打印机与材料处理装置，空气中漂浮着聚合物经激光烧结的独特气息。你需将快乐共鸣器放在对应的平台上，他会自动接入终端，屏幕随即亮起你此行收集的快乐能量数据：那道跳跃的波形图，正是你每一次惊叹、欢笑与协作喜悦的可视化呈现。</p>
-                    </div>
-                </div>
-                <div class="attraction-visual glow-border-blue">
-                     <img src="./jiyi.png" alt="记忆熔炉场景">
-                </div>
-            </div>
-        </section>
-
-        <section id="celebration" class="attraction-section final-section text-center">
-            <div class="container">
-                <h2 class="glow-text big-title">最终章 | 星火庆典 (Spark Celebration)</h2>
-                <div class="celebration-content glow-border">
-                    <img src="./星火庆典.png" alt="星火庆典" class="celebration-img">
-                    <div class="attraction-description" style="max-width: 800px; margin: 30px auto;">
-                        <p>夜幕降临，所有游客汇聚在中心广场。巨大的能量塔点燃象征希望的火星之光，全息烟花在穹顶绽放。这是一场共享快乐能量的盛大派对，庆祝人类在宇宙中的联结与新生！</p>
-                    </div>
-                     <a href="#" class="btn-primary glow-button">加入庆典</a>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <p>© 2035 IRIS BAY.com | 火星乐园“虹湾之城”版权所有</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+            <div class="interactive-map-container">
+                <img src="./map.jpg" alt="虹湾之城地图">
+                <a href="#canyon" class="map-hotspot" style="top: 28%; left: 76%;" data-name="峡谷巡礼"><div class="hotspot-dot"></div></a>
+                <a href="#gravity" class="map-hotspot" style="top: 55%; left: 48%;" data-name="重力之舞"><div class="hotspot-dot"></div></a>
+                <a href="#starlight" class="map-hot
