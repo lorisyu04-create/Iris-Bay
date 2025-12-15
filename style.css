@@ -16,12 +16,12 @@ body {
     font-family: 'Noto Sans SC', sans-serif;
     background-color: var(--mars-darker);
     color: var(--text-light);
-    scroll-behavior: smooth; /* 启用平滑滚动 */
+    scroll-behavior: smooth;
     overflow-x: hidden;
 }
 
 h1, h2, h3, .logo, .btn-primary {
-    font-family: 'Orbitron', sans-serif; /* 科幻字体 */
+    font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
 }
 
@@ -109,12 +109,8 @@ a {
 /* Hero 首页 */
 .hero-section {
     height: 100vh;
-    /* 【缺图】如果您有背景图，请命名为 bg.jpg 放入 assets 文件夹，然后取消下面这一行的注释 */
-    /* background: linear-gradient(to bottom, rgba(10,5,5,0.6), var(--mars-darker)), url('assets/bg.jpg') no-repeat center center/cover; */
-    
-    /* 临时使用的在线背景图，如果有了 bg.jpg 请删除下面这一行 */
+    /* 背景图占位，可替换为 assets/bg.jpg */
     background: linear-gradient(to bottom, rgba(10,5,5,0.6), var(--mars-darker)), url('https://images.unsplash.com/photo-1635332616035-136c9668d90e?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -201,7 +197,9 @@ a {
     border-left: 4px solid var(--mars-red);
 }
 
-/* 交互地图区域 */
+/* =========================================
+   交互地图区域 & 新版跳动定位针样式
+========================================= */
 .map-section {
     padding: 100px 0;
     background: var(--mars-darker);
@@ -216,161 +214,91 @@ a {
     position: relative;
     max-width: 1000px;
     margin: 50px auto;
-    background: rgba(74, 139, 173, 0.1); /* 蓝色微光背景 */
+    background: rgba(74, 139, 173, 0.1);
     padding: 20px;
     overflow: hidden;
-    min-height: 400px; /* 防止没有地图时塌陷 */
+    min-height: 400px;
 }
 
 .main-map {
     width: 100%;
     display: block;
-    filter: sepia(30%) hue-rotate(-10deg) contrast(110%); /* 稍微调整地图色调以适应网站 */
+    /* 稍微调整地图色调 */
+    filter: sepia(20%) contrast(105%);
 }
 
-/* 地图热点样式 */
+/* 热点容器 - 针尖对准点 */
 .map-hotspot {
     position: absolute;
     width: 40px;
-    height: 40px;
-    transform: translate(-50%, -50%); /* 居中定位 */
+    height: 50px; 
+    transform: translate(-50%, -100%);
     z-index: 10;
     cursor: pointer;
+    text-align: center;
 }
 
+/* 定位针样式与动画 */
 .hotspot-dot {
-    width: 20px;
-    height: 20px;
-    background: var(--neon-red);
-    border-radius: 50%;
-    margin: 10px;
-    box-shadow: 0 0 0 rgba(255, 72, 0, 0.4);
-    animation: pulse 2s infinite;
-}
-.celebration-hotspot .hotspot-dot {
-    background: var(--neon-blue); /* 庆典用蓝色区分 */
-     animation: pulse-blue 2s infinite;
+    font-size: 2.5rem;
+    /* 红色霓虹光晕 */
+    text-shadow: 0 0 5px #fff, 0 0 15px var(--neon-red), 0 0 25px var(--neon-red);
+    animation: pin-bounce 1.5s ease-in-out infinite alternate;
 }
 
+/* 庆典蓝色版 */
+.celebration-hotspot .hotspot-dot {
+     text-shadow: 0 0 5px #fff, 0 0 15px var(--neon-blue), 0 0 25px var(--neon-blue);
+     animation-name: pin-bounce-blue;
+}
+
+/* 悬停提示框 */
 .map-hotspot:hover::after {
     content: attr(data-name);
     position: absolute;
-    top: -30px;
+    top: -40px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0,0,0,0.8);
-    padding: 5px 10px;
+    background: rgba(10, 5, 5, 0.9);
+    padding: 8px 12px;
     border-radius: 5px;
     white-space: nowrap;
     color: var(--neon-red);
-    font-size: 0.9rem;
+    font-size: 1rem;
     border: 1px solid var(--mars-red);
+    box-shadow: 0 0 10px var(--mars-red);
+    pointer-events: none;
 }
 
-/* 游览项目通用样式 */
+/* 跳动动画定义 */
+@keyframes pin-bounce {
+    0% {
+        transform: translateY(0);
+        text-shadow: 0 0 5px #fff, 0 0 15px var(--neon-red), 0 0 25px var(--neon-red);
+    }
+    100% {
+        transform: translateY(-15px);
+        text-shadow: 0 0 10px #fff, 0 0 25px var(--neon-red), 0 0 35px var(--neon-red);
+    }
+}
+
+@keyframes pin-bounce-blue {
+    0% {
+        transform: translateY(0);
+        text-shadow: 0 0 5px #fff, 0 0 15px var(--neon-blue), 0 0 25px var(--neon-blue);
+    }
+    100% {
+        transform: translateY(-15px);
+        text-shadow: 0 0 10px #fff, 0 0 25px var(--neon-blue), 0 0 35px var(--neon-blue);
+    }
+}
+
+/* =========================================
+   游览项目 & 页脚
+========================================= */
 .attraction-section {
     padding: 120px 0;
     border-bottom: 1px solid rgba(198, 95, 72, 0.2);
 }
 .attraction-left { background: linear-gradient(to right, var(--mars-darker), #221515); }
-.attraction-right { background: linear-gradient(to left, var(--mars-darker), #151a22); }
-
-.attraction-text h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
-.attraction-description p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #ccc;
-}
-
-.attraction-visual {
-    flex: 1;
-    overflow: hidden;
-}
-.attraction-visual img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s ease;
-}
-.attraction-visual:hover img {
-    transform: scale(1.05); /* 鼠标悬停放大效果 */
-}
-
-/* 飞行器展示 */
-.vehicle-display {
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    background: rgba(74, 139, 173, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-}
-.vehicle-img {
-    width: 120px;
-    height: auto;
-    border-radius: 5px;
-}
-.vehicle-display span {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--space-blue);
-}
-
-/* 反向布局类 */
-.row-reverse {
-    flex-direction: row-reverse;
-}
-
-/* 最终章特别样式 */
-.final-section {
-    background: radial-gradient(circle at center, #3a1a1a, var(--mars-darker));
-    padding-bottom: 150px;
-}
-.big-title {
-    font-size: 3rem;
-    margin-bottom: 50px;
-}
-.celebration-content {
-    background: rgba(0,0,0,0.5);
-    padding: 20px;
-    display: inline-block;
-}
-.celebration-img {
-    max-width: 100%;
-    border-radius: 5px;
-}
-
-/* 页脚 */
-footer {
-    background: var(--mars-darker);
-    padding: 30px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #666;
-    border-top: 1px solid var(--mars-red);
-}
-
-/* 动画定义 */
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 72, 0, 0.7); }
-    70% { box-shadow: 0 0 0 20px rgba(255, 72, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 72, 0, 0); }
-}
-@keyframes pulse-blue {
-    0% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0.7); }
-    70% { box-shadow: 0 0 0 20px rgba(0, 247, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 247, 255, 0); }
-}
-
-/* 响应式适配 (简单版) */
-@media (max-width: 768px) {
-    .hero-content h1 { font-size: 2.5rem; }
-    .flex-center { flex-direction: column; gap: 30px; }
-    .row-reverse { flex-direction: column; }
-    .guide-image-container, .attraction-visual { max-width: 100%; width: 100%; }
-    .navbar { padding: 15px; flex-direction: column; gap: 15px; }
-    .map-hotspot:hover::after { display: none; } /* 手机端隐藏hover提示 */
-}
+.attraction-right { background: linear-gradient(to left, var(--mars-
